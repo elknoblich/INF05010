@@ -5,8 +5,6 @@ namespace INF05010;
 
 public class Program
 {
-    // dotnet run 530309 100 50 0.65 0.6 C:\UFRGS\INF05010\Files\file1.csv C:\UFRGS\INF05010\Files\file2.csv C:\UFRGS\INF05010\Files\file3.csv
-
     public static void Main(string[] arguments)
     {
         Console.Clear();
