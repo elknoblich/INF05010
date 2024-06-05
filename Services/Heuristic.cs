@@ -2,23 +2,13 @@
 
 namespace INF05010.Services;
 
-public class Heuristic(string file, int repetitions, int populationChromossomes, float crossOverRate, float mutationRate, Random randomizer, Parameters parameters, Professor[] professors, Student[] students)
+public static class Heuristic
 {
-    public string File = file;
-    public int Repetitions = repetitions;
-    public int PopulationChromossomes = populationChromossomes;
-    public float CrossOverRate = crossOverRate;
-    public float MutationRate = mutationRate;
-    public Random Randomizer = randomizer;
-    public Parameters Parameters = parameters;
-    public Professor[] Professors = professors;
-    public Student[] Students = students;
-    
-    public void Solve()
+    public static void Solve(string file, int repetitions, int populationChromossomes, float crossOverRate, float mutationRate, Random randomizer, Parameters parameters, Professor[] professors, Student[] students)
     {
         int i = 0;
 
-        var population1 = new Population(PopulationChromossomes, Randomizer, Parameters, Professors, Students);
+        var population1 = new Population(populationChromossomes, randomizer, parameters, professors, students);
 
         int solution1 = population1.SelectPopulationBestChromossome().Solution;
 
@@ -26,29 +16,29 @@ public class Heuristic(string file, int repetitions, int populationChromossomes,
         {
             int j = 0;
 
-            var population2 = new Population(PopulationChromossomes);
+            var population2 = new Population(populationChromossomes);
 
-            while (j < PopulationChromossomes)
+            while (j < populationChromossomes)
             {
-                var offspring = new Chromossome(Professors.Length);
+                var offspring = new Chromossome(professors.Length);
 
-                (Chromossome chromossome1, Chromossome chromossome2) = population1.SelectPopulationChromossomes(Randomizer);
+                (Chromossome chromossome1, Chromossome chromossome2) = population1.SelectPopulationChromossomes(randomizer);
 
-                if (Randomizer.NextDouble() < CrossOverRate)
+                if (randomizer.NextDouble() < crossOverRate)
                 {
-                    offspring = chromossome1.CrossoverChromossome(chromossome2, Professors, Randomizer);
+                    offspring = chromossome1.CrossoverChromossome(chromossome2, professors, randomizer);
                 }
                 else
                 {
                     offspring = chromossome1.Solution < chromossome2.Solution ? chromossome1 : chromossome2;
                 }
 
-                if (Randomizer.NextDouble() < MutationRate)
+                if (randomizer.NextDouble() < crossOverRate)
                 {
-                    offspring.MutateChromossome(Randomizer);
+                    offspring.MutateChromossome(randomizer);
                 }
 
-                if (offspring.ValidateChromossome(Parameters.Hours, Parameters.Distance, Professors, Students))
+                if (offspring.ValidateChromossome(parameters.MinimumHours, parameters.MaximumDistance, professors, students))
                 {
                     population2.Chromossomes[j] = offspring;
 
@@ -62,7 +52,7 @@ public class Heuristic(string file, int repetitions, int populationChromossomes,
             {
                 i++;
 
-                if (i == Repetitions)
+                if (i == repetitions)
                 {
                     break;
                 }
@@ -77,8 +67,8 @@ public class Heuristic(string file, int repetitions, int populationChromossomes,
             population1 = population2;
         }
 
-        DisplaySolution(solution1);
+        DisplaySolution(file, solution1);
     }
 
-    public void DisplaySolution(int solution) => Console.WriteLine($"File: {File}, Solution: {solution}");
+    public static void DisplaySolution(string file, int solution) => Console.WriteLine($"File: {file}, Solution: {solution}");
 }

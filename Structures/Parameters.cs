@@ -2,9 +2,8 @@
 
 public struct Parameters
 {
-    public string File { get; set; }
-    public int Professors { get; set; }
-    public int Students { get; set; }
-    public int Hours { get; set; }
-    public float Distance { get; set; }
+    public int MinimumHours { get; set; }
+    public float MaximumDistance { get; set; }
+    public int NumberOfProfessors { get; set; }
+    public int NumberOfStudents { get; set; }
 }

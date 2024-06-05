@@ -15,7 +15,8 @@ public class Program
         int populationChromossomes = int.Parse(arguments[2]);
         float crossOverRate = float.Parse(arguments[3]);
         float mutationRate = float.Parse(arguments[4]);
-        var random = new Random(seed);
+
+        var randomizer = new Random(seed);
 
         Console.WriteLine($"Seed: {seed}");
         Console.WriteLine($"Repetitions: {repetitions}");
@@ -23,17 +24,11 @@ public class Program
         Console.WriteLine($"Cross-Over Rate: {crossOverRate}");
         Console.WriteLine($"Mutation Rate: {mutationRate}\n");
 
-        var fileReader = new FileReader(arguments[5..]);
-
-        Parameters[] parameters = fileReader.ReadParametersFromFile();
-        Professor[][] professors = fileReader.ReadProfessorsFromFile(parameters);
-        Student[][] students = fileReader.ReadStudentsFromFile(parameters);
-
-        for (int i = 0; i < parameters.Length; i++)
+        foreach (string file in arguments[5..])
         {
-            var heuristic = new Heuristic(parameters[i].File, repetitions, populationChromossomes, crossOverRate, mutationRate, random, parameters[i], professors[i], students[i]);
+            Information information = FileReader.ReadInformation(file);
 
-            heuristic.Solve();
+            Heuristic.Solve(file, repetitions, populationChromossomes, crossOverRate, mutationRate, randomizer, information.Parameters, information.Professors, information.Students);
         }
     }  
 }

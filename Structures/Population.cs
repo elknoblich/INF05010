@@ -11,7 +11,7 @@ public struct Population
     public Population(int populationChromossomes, Random randomizer, Parameters parameters, Professor[] professors, Student[] students)
     {
         Chromossomes = new Chromossome[populationChromossomes];
-        Chromossomes = Chromossomes.Select(chromossome => new Chromossome(parameters.Distance, parameters.Hours, professors, students, randomizer)).ToArray();
+        Chromossomes = Chromossomes.Select(chromossome => new Chromossome(parameters.MaximumDistance, parameters.MinimumHours, professors, students, randomizer)).ToArray();
     }
 
     public readonly (Chromossome, Chromossome) SelectPopulationChromossomes(Random randomizer)

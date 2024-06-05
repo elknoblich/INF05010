@@ -2,66 +2,63 @@
 
 namespace INF05010.Services;
 
-public class FileReader(string[] files)
+public static class FileReader
 {
-    public string[] Files = files;
-
-    public Parameters[] ReadParametersFromFile() => Files.Select(file =>
+    public static Information ReadInformation(string file)
     {
-        string[] lines = File.ReadLines(file).Take(2).ToArray();
+        Parameters parameters = ReadParameters(file);
 
-        string[] first = lines[0].Split(',');
-        string[] second = lines[1].Split(',');
+        return new Information
+        {
+            Parameters = parameters,
+            Professors = ReadProfessors(file, parameters.NumberOfProfessors),
+            Students = ReadStudents(file, parameters.NumberOfProfessors, parameters.NumberOfStudents)
+        };
+    }
+    
+    private static Parameters ReadParameters(string file)
+    {
+        string[] values = File.ReadLines(file).Take(2).SelectMany(line => line.Split(',')).ToArray();
 
         return new Parameters
         {
-            File = file,
-            Professors = int.Parse(first[0]),
-            Students = int.Parse(first[1]),
-            Hours = int.Parse(second[0]),
-            Distance = float.Parse(second[1])
+            NumberOfProfessors = int.Parse(values[0]),
+            NumberOfStudents = int.Parse(values[1]),
+            MinimumHours = int.Parse(values[2]),
+            MaximumDistance = float.Parse(values[3])
         };
-      
-    }).ToArray();
+    }
 
-    public Professor[][] ReadProfessorsFromFile(Parameters[] parameters) => parameters.Select((parameter, index) =>
+    private static Professor[] ReadProfessors(string file, int numberOfProfessors) => File.ReadLines(file).Skip(2).Take(numberOfProfessors).Select(line =>
     {
-        return File.ReadLines(Files[index]).Skip(2).Take(parameter.Professors).Select(line =>
+        string[] values = line.Split(',');
+
+        return new Professor
         {
-            string[] values = line.Split(',');
-
-            return new Professor
+            Salary = int.Parse(values[3]),
+            Coordinate = new Coordinate
             {
-                Salary = int.Parse(values[3]),
-                Coordinate = new Coordinate
-                {
-                    X = double.Parse(values[1]),
-                    Y = double.Parse(values[2])
-                }
-            };
-
-        }).ToArray();
+                X = double.Parse(values[1]),
+                Y = double.Parse(values[2])
+            }
+        };
 
     }).ToArray();
 
-    public Student[][] ReadStudentsFromFile(Parameters[] parameters) => parameters.Select((parameter, index) =>
+    private static Student[] ReadStudents(string file, int numberOfProfessors, int numberOfStudents) => File.ReadLines(file).Skip(2 + numberOfProfessors).Take(numberOfStudents).Select(line =>
     {
-        return File.ReadLines(Files[index]).Skip(2 + parameter.Professors).Take(parameter.Students).Select(line =>
+        string[] values = line.Split(',');
+
+        return new Student
         {
-            string[] values = line.Split(',');
-
-            return new Student
+            Hours = short.Parse(values[3]),
+            Selected = 0,
+            Coordinate = new Coordinate
             {
-                Hours = short.Parse(values[3]),
-                Selected = 0,
-                Coordinate = new Coordinate
-                {
-                    X = double.Parse(values[1]),
-                    Y = double.Parse(values[2])
-                }
-            };
-
-        }).ToArray();
+                X = double.Parse(values[1]),
+                Y = double.Parse(values[2])
+            }
+        };
 
     }).ToArray();
 }
