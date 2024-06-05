@@ -7,10 +7,10 @@
 </div>
 
 <div align = "center">
-  <img src="https://github.com/elknoblich/INF05010/assets/133152739/0f29d0e8-8a78-4514-903d-f4df040dec83">
+  <img src="https://github.com/elknoblich/INF05010/assets/133152739/92900d16-521d-4587-99c9-0231b39348c0">
 </div>
 
 <!--
-  <img src="https://github.com/elknoblich/INF05010/assets/133152739/0f29d0e8-8a78-4514-903d-f4df040dec83">
-  ![001](https://github.com/elknoblich/INF05010/assets/133152739/0f29d0e8-8a78-4514-903d-f4df040dec83)
+  <img src="https://github.com/elknoblich/INF05010/assets/133152739/92900d16-521d-4587-99c9-0231b39348c0">
+  ![001](https://github.com/elknoblich/INF05010/assets/133152739/92900d16-521d-4587-99c9-0231b39348c0)
 -->
