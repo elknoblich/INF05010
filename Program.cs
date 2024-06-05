@@ -24,11 +24,11 @@ public class Program
         Console.WriteLine($"Cross-Over Rate: {crossOverRate}");
         Console.WriteLine($"Mutation Rate: {mutationRate}\n");
 
-        foreach (string file in arguments[5..])
+        Array.ForEach(arguments[5..], file =>
         {
             Information information = FileReader.ReadInformation(file);
 
             Heuristic.Solve(file, repetitions, populationChromossomes, crossOverRate, mutationRate, randomizer, information.Parameters, information.Professors, information.Students);
-        }
+        });
     }  
 }

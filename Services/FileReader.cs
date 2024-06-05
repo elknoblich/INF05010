@@ -8,6 +8,8 @@ public static class FileReader
     {
         Parameters parameters = ReadParameters(file);
 
+        DisplayParameters(file, parameters);
+
         return new Information
         {
             Parameters = parameters,
@@ -61,4 +63,6 @@ public static class FileReader
         };
 
     }).ToArray();
+
+    private static void DisplayParameters(string file, Parameters parameters) => Console.WriteLine($"File: {file}\nNumber of Professors: {parameters.NumberOfProfessors}\nNumber of Students: {parameters.NumberOfStudents}\nMinimum Hours: {parameters.MinimumHours}\nMaximum Distance: {parameters.MaximumDistance}");
 }

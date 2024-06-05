@@ -67,8 +67,8 @@ public static class Heuristic
             population1 = population2;
         }
 
-        DisplaySolution(file, solution1);
+        DisplaySolution(solution1);
     }
 
-    public static void DisplaySolution(string file, int solution) => Console.WriteLine($"File: {file}, Solution: {solution}");
+    public static void DisplaySolution(int solution) => Console.WriteLine($"Solution: {solution}\n");
 }
