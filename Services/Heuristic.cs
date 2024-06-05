@@ -4,7 +4,7 @@ namespace INF05010.Services;
 
 public static class Heuristic
 {
-    public static void Solve(string file, int repetitions, int populationChromossomes, float crossOverRate, float mutationRate, Random randomizer, Parameters parameters, Professor[] professors, Student[] students)
+    public static void Solve(int repetitions, int populationChromossomes, float crossOverRate, float mutationRate, Random randomizer, Parameters parameters, Professor[] professors, Student[] students)
     {
         int i = 0;
 
@@ -33,7 +33,7 @@ public static class Heuristic
                     offspring = chromossome1.Solution < chromossome2.Solution ? chromossome1 : chromossome2;
                 }
 
-                if (randomizer.NextDouble() < crossOverRate)
+                if (randomizer.NextDouble() < mutationRate)
                 {
                     offspring.MutateChromossome(randomizer);
                 }

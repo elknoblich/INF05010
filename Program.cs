@@ -28,7 +28,7 @@ public class Program
         {
             Information information = FileReader.ReadInformation(file);
 
-            Heuristic.Solve(file, repetitions, populationChromossomes, crossOverRate, mutationRate, randomizer, information.Parameters, information.Professors, information.Students);
+            Heuristic.Solve(repetitions, populationChromossomes, crossOverRate, mutationRate, randomizer, information.Parameters, information.Professors, information.Students);
         });
     }  
 }
